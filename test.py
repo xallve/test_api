@@ -9,6 +9,10 @@ from constants import BASE_URL2
 class APITest(unittest.TestCase):
     def test_api(self):
         r = requests.get(BASE_URL2)
+        try:
+            r.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            print(e)
         self.assertEqual(r.status_code, 200)
 
 
