@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import Mock, patch
 import json
 import requests
-from services import create_user
+from services import API
 from constants import BASE_URL2
 
 
@@ -14,8 +14,9 @@ class APITest(unittest.TestCase):
 
     @patch('services.requests.post')
     def test_create_user(self, mock_post):
-        mock_post.return_value.text = """{"status": "success","email": "user@user.com","username": "useruser12345"}"""
-        self.assertEqual(create_user("PASSword123_", "useruser12345", "user@user.com"),
+        mgc = API("PASSword123_", "useruser12345", "user@user.com")
+        mock_post.return_value.text = """{"status": "success", "email": "user@user.com", "username": "useruser12345"}"""
+        self.assertEqual(mgc.create_user(),
         {
             "status": "success",
             "email": "user@user.com",
